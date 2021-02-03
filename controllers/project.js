@@ -8,7 +8,7 @@ exports.getAllProjects = (_, res, next) => {
 };
 
 exports.getProject = (req, res, next) => {
-  Project.findById(req.params.id, (error, project) => {
+  Project.find({ slug: req.params.id }, (error, project) => {
     if (error) return next(error);
     res.status(200).json(project);
   });
@@ -16,6 +16,7 @@ exports.getProject = (req, res, next) => {
 
 exports.createProject = (req, res, next) => {
   const project = new Project({
+    slug: req.body.slug,
     title: req.body.title,
     roles: req.body.roles,
     tools: req.body.tools,
@@ -30,14 +31,14 @@ exports.createProject = (req, res, next) => {
 };
 
 exports.updateProject = (req, res, next) => {
-  Project.findByIdAndUpdate(req.params.id, { $set: req.body }, (error, project) => {
+  Project.findByIdAndUpdate(req.params.id, { $set: req.body }, (error) => {
     if (error) return next(error);
     res.status(200).send("Project updated!");
   });
 };
 
 exports.deleteProject = (req, res, next) => {
-  Project.findByIdAndRemove(req.params.id, { $set: req.body }, (error, project) => {
+  Project.findByIdAndRemove(req.params.id, { $set: req.body }, (error) => {
     if (error) return next(error);
     res.status(200).send("Project deleted!");
   });
