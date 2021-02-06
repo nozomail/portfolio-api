@@ -5,6 +5,7 @@ const cors = require("cors");
 
 const aboutRoutes = require("./routes/about");
 const projectRoutes = require("./routes/projects");
+const contactRoutes = require("./routes/contact");
 
 const app = express();
 
@@ -14,6 +15,7 @@ app.use(cors());
 
 app.use("/about", aboutRoutes);
 app.use("/projects", projectRoutes);
+app.use("/contact", contactRoutes);
 
 app.use((_, res) => {
   res.status(404).send("<h1>Page not found</h1>");
